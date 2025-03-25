@@ -351,7 +351,7 @@ def get_accelerate_model(args, checkpoint_dir):
         trust_remote_code=args.trust_remote_code,
         use_auth_token=args.use_auth_token,
     )
-    if tokenizer._pad_token is None:
+    if tokenizer.pad_token is None:
         smart_tokenizer_and_embedding_resize(
             special_tokens_dict=dict(pad_token=DEFAULT_PAD_TOKEN),
             tokenizer=tokenizer,
@@ -369,6 +369,7 @@ def get_accelerate_model(args, checkpoint_dir):
                 "unk_token": tokenizer.convert_ids_to_tokens(
                     model.config.pad_token_id if model.config.pad_token_id != -1 else tokenizer.pad_token_id
                 ),
+                "pad_token": tokenizer.pad_token or "[PAD]",
         })
     
     if not args.full_finetune:
