@@ -647,8 +647,10 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
             eval_dataset = dataset['eval']
         else:
             print('Splitting train dataset in train and validation according to `eval_dataset_size`')
+            # 確保 test_size 不超過數據集樣本數
+            test_size = args.eval_dataset_size if args.eval_dataset_size < len(dataset["train"]) else 0.1
             dataset = dataset["train"].train_test_split(
-                test_size=args.eval_dataset_size, shuffle=True, seed=42
+                test_size=test_size, shuffle=True, seed=42
             )
             eval_dataset = dataset['test']
         if args.max_eval_samples is not None and len(eval_dataset) > args.max_eval_samples:
