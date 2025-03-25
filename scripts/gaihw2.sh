@@ -1,6 +1,6 @@
 python qlora.py \
     --model_name_or_path huggyllama/llama-13b \
-    --output_dir ./output/gaihw2-13b \
+    --output_dir ./output/gaihw2-llama-13b \
     --logging_steps 10 \
     --save_strategy steps \
     --data_seed 42 \
