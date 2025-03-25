@@ -574,6 +574,8 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
     def load_data(dataset_name):
         if dataset_name == 'alpaca':
             return load_dataset("tatsu-lab/alpaca")
+        elif dataset_name == 'gaihw2':
+            return load_dataset("json", data_files={"train": "data/train.json"})
         elif dataset_name == 'alpaca-clean':
             return load_dataset("yahma/alpaca-cleaned")
         elif dataset_name == 'chip2':
@@ -622,6 +624,11 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
             dataset = dataset.map(lambda x: {
                 'input': '',
                 'output': x['text'],
+            })
+        elif dataset_format == 'gaihw2':
+            dataset = dataset.map(lambda x: {
+                'input': x['introduction'],
+                'output': x['abstract'],
             })
         elif dataset_format == 'input-output':
             # leave as is
