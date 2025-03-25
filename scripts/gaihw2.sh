@@ -23,6 +23,10 @@ python qlora.py \
     --quant_type nf4 \
     --bf16 \
     --bits 4 \
+    --do_eval \
+    --do_mmlu_eval \--do_eval \
+    --do_mmlu_eval \--do_eval \
+    --do_mmlu_eval \
     --warmup_ratio 0.03 \
     --lr_scheduler_type constant \
     --gradient_checkpointing \
